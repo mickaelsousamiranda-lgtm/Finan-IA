@@ -1,282 +1,198 @@
-# 💰 Finan.IA — Assistente Financeiro Inteligente
+# Finan.IA — Assistente Financeiro Inteligente
 
-**Assistente financeiro conversacional desenvolvido com Python, Streamlit, n8n e Inteligência Artificial.**
+## 1. Sobre o projeto
 
-O Finan.IA é um projeto acadêmico que busca facilitar o controle financeiro pessoal por meio de uma interface de chat. O usuário pode escrever solicitações em linguagem natural para registrar receitas e despesas, consultar seu saldo e obter extratos financeiros.
+O **Finan.IA** é um assistente financeiro inteligente desenvolvido para auxiliar os usuários na organização e no controle de suas movimentações financeiras por meio de uma interface conversacional.
 
-O projeto integra uma interface desenvolvida em Python a um fluxo de automação no n8n, utilizando um agente de Inteligência Artificial com Google Gemini para interpretar as mensagens e auxiliar na execução das operações.
+O sistema utiliza Python e Streamlit para a interface, enquanto o n8n realiza a integração entre o webhook, o agente de inteligência artificial e os recursos de armazenamento de dados. O modelo Google Gemini é utilizado para interpretar as mensagens e gerar respostas ao usuário.
 
----
+O projeto foi desenvolvido com finalidade acadêmica, permitindo explorar a integração entre desenvolvimento web, automação de processos, inteligência artificial e gerenciamento de dados.
 
-## 📌 Sobre o projeto
+## 2. Objetivos
 
-O controle financeiro pessoal é importante para acompanhar receitas, despesas e saldo disponível. Entretanto, manter registros manualmente pode exigir tempo e organização.
+- Desenvolver uma interface conversacional para interação com um assistente financeiro.
+- Integrar uma aplicação Python a um fluxo de automação criado no n8n.
+- Utilizar inteligência artificial para interpretar solicitações em linguagem natural.
+- Estruturar dados de movimentações financeiras.
+- Demonstrar a comunicação entre diferentes tecnologias por meio de requisições HTTP e dados em formato JSON.
 
-O Finan.IA propõe uma alternativa conversacional, permitindo que o usuário interaja com o sistema por meio de mensagens simples, como:
+## 3. Funcionalidades
 
-- “Recebi R$ 1.500,00 de salário.”
-- “Gastei R$ 35,00 com alimentação hoje.”
-- “Qual é o meu saldo atual?”
-- “Mostre meu extrato mensal.”
+- Interface de chat desenvolvida com Streamlit.
+- Envio de mensagens do usuário para o assistente financeiro.
+- Integração com um webhook do n8n.
+- Processamento de mensagens por um agente de inteligência artificial.
+- Utilização do Google Gemini para geração de respostas.
+- Uso de memória conversacional para manter o contexto da interação, conforme a configuração do fluxo.
+- Integração com uma tabela de dados para estruturar movimentações financeiras.
+- Tratamento de erros de comunicação e tempo limite de requisições.
 
-A aplicação foi desenvolvida com finalidade acadêmica e demonstra a integração entre desenvolvimento Python, interfaces web, automação de processos e Inteligência Artificial.
+## 4. Tecnologias utilizadas
 
-## 🎯 Objetivos
-
-- Desenvolver uma interface de chat intuitiva e visualmente personalizada.
-- Facilitar o registro de receitas e despesas em linguagem natural.
-- Integrar a interface Python a um webhook do n8n.
-- Utilizar Inteligência Artificial para interpretar as solicitações do usuário.
-- Armazenar e consultar movimentações financeiras em uma tabela de dados.
-- Apresentar informações como saldo e extrato mensal com base nos registros disponíveis.
-- Aplicar conceitos de programação, integração de sistemas e automação.
-
-## ✨ Funcionalidades
-
-- **Interface conversacional:** interação por mensagens.
-- **Registro financeiro:** suporte ao registro de receitas e despesas.
-- **Consulta de saldo:** cálculo de receitas menos despesas registradas.
-- **Extrato mensal:** consulta das movimentações por período.
-- **Interpretação de linguagem natural:** utilização de um agente de IA.
-- **Integração com automação:** comunicação entre Python e n8n por HTTP.
-- **Tratamento de erros:** tratamento de falhas de comunicação e respostas inesperadas.
-- **Memória de conversa:** utilização do recurso Simple Memory no fluxo configurado.
-
-> A execução de cada funcionalidade depende da configuração correta do fluxo no n8n, das ferramentas conectadas e dos dados disponíveis na tabela.
-
-## 🛠️ Tecnologias utilizadas
-
-| Tecnologia | Finalidade |
+| Tecnologia | Aplicação no projeto |
 |---|---|
 | Python | Linguagem utilizada no desenvolvimento da aplicação. |
-| Streamlit | Criação da interface web interativa. |
-| Requests | Comunicação HTTP entre a aplicação e o webhook. |
-| n8n | Automação e integração entre os componentes. |
-| Google Gemini | Modelo de IA utilizado pelo agente para interpretar mensagens. |
-| Simple Memory | Apoio à continuidade contextual da conversa. |
-| Data Table do n8n | Armazenamento e consulta das movimentações financeiras. |
-| JSON | Formato utilizado na comunicação entre os sistemas. |
+| Streamlit | Construção da interface gráfica e do chat. |
+| Requests | Comunicação HTTP entre a aplicação Python e o webhook. |
+| n8n | Orquestração do fluxo de automação. |
+| Google Gemini | Interpretação das mensagens e geração de respostas pelo agente de IA. |
+| Simple Memory | Apoio à manutenção do contexto conversacional. |
+| n8n Data Table | Estruturação e armazenamento de dados financeiros, conforme o fluxo configurado. |
+| JSON | Formato utilizado na troca de informações entre os componentes. |
 | GitHub | Versionamento e disponibilização do código-fonte. |
 
-## 🏗️ Arquitetura do sistema
+## 5. Arquitetura do sistema
 
-O funcionamento geral do Finan.IA pode ser representado pelo fluxo abaixo:
+O funcionamento do Finan.IA ocorre por meio da integração entre a interface desenvolvida em Python e o fluxo de automação configurado no n8n.
 
 ```text
-┌─────────────────────────────┐
-│          USUÁRIO            │
-│   Envia mensagem no chat    │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│      PYTHON + STREAMLIT     │
-│     Interface conversacional│
-└──────────────┬──────────────┘
-               │ HTTP POST / JSON
-               ▼
-┌─────────────────────────────┐
-│        WEBHOOK n8n          │
-│     Recebe a solicitação    │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│      AGENTE DE IA           │
-│    Google Gemini            │
-│ Interpreta a mensagem       │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│     FERRAMENTAS E DADOS     │
-│     Data Table do n8n       │
-│ Registro e consultas        │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│   RESPOND TO WEBHOOK        │
-│    Retorna a resposta       │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│       CHAT FINAN.IA         │
-│ Exibe o resultado ao usuário│
-└─────────────────────────────┘
+Usuário
+   |
+   v
+Interface Python + Streamlit
+   |
+   v
+Requisição HTTP com dados em JSON
+   |
+   v
+Webhook do n8n
+   |
+   v
+Agente de Inteligência Artificial
+   |
+   v
+Google Gemini
+   |
+   v
+Memória conversacional e recursos de dados
+   |
+   v
+Resposta do n8n
+   |
+   v
+Exibição da resposta no chat
 ```
 
-### Etapas do funcionamento
+A aplicação envia a mensagem do usuário ao webhook. O n8n recebe os dados e encaminha o conteúdo ao agente de inteligência artificial. Após o processamento, a resposta é retornada à aplicação para exibição na interface.
 
-1. O usuário digita uma mensagem na interface Streamlit.
-2. A aplicação Python envia a mensagem em formato JSON para o webhook.
-3. O n8n recebe a solicitação e encaminha a mensagem ao agente de IA.
-4. O agente interpreta a intenção e utiliza as ferramentas disponíveis, quando necessário.
-5. As movimentações são armazenadas ou consultadas na tabela de dados.
-6. O nó Respond to Webhook retorna o resultado.
-7. A aplicação apresenta a resposta no chat.
+## 6. Estrutura dos dados financeiros
 
-## 🗃️ Estrutura dos dados financeiros
-
-A tabela utilizada no fluxo é identificada como `movimentacoes_finania`.
-
-Os campos principais são:
+O fluxo foi estruturado para trabalhar com os seguintes campos de movimentação financeira:
 
 | Campo | Descrição |
 |---|---|
-| `usuario_id` | Identificador do usuário associado ao lançamento. |
-| `data` | Data da movimentação. |
-| `tipo` | Tipo da movimentação: receita ou despesa. |
-| `categoria` | Categoria financeira. |
-| `descricao` | Descrição do lançamento. |
-| `valor_centavos` | Valor monetário armazenado em centavos inteiros. |
+| `usuario_id` | Identificador do usuário. |
+| `data` | Data da movimentação financeira. |
+| `tipo` | Tipo da movimentação, como entrada ou saída. |
+| `categoria` | Categoria financeira da movimentação. |
+| `descricao` | Descrição da movimentação. |
+| `valor_centavos` | Valor monetário armazenado em centavos. |
 
-**Exemplo:** uma movimentação de R$ 25,00 corresponde a `2500` centavos.
+**Exemplo de representação monetária:**
 
-O saldo é calculado pela diferença entre o total das receitas e o total das despesas registradas.
+Um valor de R$ 25,00 corresponde a `2500` centavos.
 
-## 💻 Como executar o projeto
+O uso de centavos como números inteiros ajuda a evitar imprecisões comuns em operações financeiras realizadas com números de ponto flutuante.
 
-### 1. Pré-requisitos
+## 7. Requisitos para execução
 
-Antes de iniciar, é necessário ter:
+Antes de executar o projeto, é necessário ter instalado:
 
-- Python instalado;
-- Acesso ao repositório do projeto;
-- Bibliotecas Python utilizadas pela aplicação;
-- Um fluxo n8n configurado e ativo;
-- Acesso aos serviços e às credenciais necessários para o agente de IA.
+- Python 3.
+- Gerenciador de pacotes pip.
+- Acesso ao webhook do n8n configurado para o projeto.
+- Dependências Python utilizadas pela aplicação.
 
-### 2. Clonar o repositório
+## 8. Instalação e execução
 
-Com o Git instalado, execute:
+### 8.1. Clonar o repositório
 
 ```bash
 git clone https://github.com/mickaelsousamiranda-lgtm/Finan-IA.git
+```
+
+### 8.2. Acessar a pasta do projeto
+
+```bash
 cd Finan-IA
 ```
 
-Se não tiver o Git instalado, você também pode abrir o repositório no GitHub e selecionar **Code → Download ZIP**. Depois, extraia os arquivos em uma pasta.
-
-### 3. Criar um ambiente virtual (opcional, recomendado)
-
-No Windows:
-
-```powershell
-python -m venv .venv
-```
-
-Ative o ambiente:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-Se o terminal utilizado for o Prompt de Comando (CMD), use:
-
-```cmd
-.venv\Scripts\activate.bat
-```
-
-### 4. Instalar as dependências
-
-Instale as bibliotecas utilizadas pela aplicação:
+### 8.3. Instalar as dependências
 
 ```bash
 python -m pip install streamlit requests
 ```
 
-### 5. Executar a aplicação
-
-No terminal, dentro da pasta do projeto, execute:
+### 8.4. Executar a aplicação
 
 ```bash
 python -m streamlit run finania.py
 ```
 
-O Streamlit normalmente abrirá a aplicação no navegador. Caso isso não aconteça, utilize o endereço local exibido no terminal.
+Após iniciar o Streamlit, acesse o endereço local apresentado no terminal para utilizar a interface.
 
-### 6. Configurar o n8n
+## 9. Configuração da integração com o n8n
 
-O fluxo precisa estar configurado para receber as mensagens e devolver uma resposta ao webhook.
+Para que a aplicação funcione corretamente, o fluxo do n8n deve estar configurado e acessível.
 
-A estrutura principal utilizada no projeto é:
+A estrutura utilizada no projeto contempla os seguintes componentes:
 
-```text
-Webhook → AI Agent → Respond to Webhook
-```
+1. **Webhook:** recebe a mensagem enviada pela aplicação Python.
+2. **AI Agent:** processa a mensagem recebida.
+3. **Google Gemini:** fornece o modelo de linguagem utilizado pelo agente.
+4. **Simple Memory:** auxilia na manutenção do contexto da conversa.
+5. **Data Table:** permite trabalhar com os dados financeiros estruturados.
+6. **Respond to Webhook:** retorna a resposta do fluxo à aplicação.
 
-O fluxo também utiliza o modelo Google Gemini, o recurso Simple Memory e ferramentas de acesso à tabela de dados.
+A mensagem enviada pela aplicação contém os campos `chatInput`, `usuario_id` e `sessionId`.
 
-No nó Webhook, a requisição deve receber o campo `chatInput`. No agente de IA, o campo **Prompt (User Message)** deve apontar para a mensagem recebida pelo webhook.
+O agente deve utilizar o campo `chatInput` recebido pelo webhook como mensagem de entrada. A configuração correta desse campo é necessária para evitar que o agente receba uma solicitação vazia.
 
-A aplicação Python precisa utilizar a URL correta do webhook configurado no n8n.
+## 10. Testes e validação
 
-## 🧪 Testes sugeridos
+A validação do sistema pode incluir os seguintes cenários:
 
-Para verificar o funcionamento do sistema, recomenda-se executar os seguintes testes com dados fictícios:
+- Verificar se a interface Streamlit é iniciada corretamente.
+- Enviar uma mensagem pelo chat e confirmar o recebimento pelo webhook.
+- Verificar se o agente de inteligência artificial recebe a mensagem.
+- Confirmar se a resposta do n8n é exibida na interface.
+- Avaliar o comportamento em caso de falha de conexão ou tempo limite.
+- Verificar a consistência dos dados financeiros registrados na tabela.
+- Testar se o contexto conversacional é mantido conforme a configuração da memória.
 
-| Teste | Solicitação | Resultado esperado |
-|---|---|---|
-| Registro de despesa | “Gastei R$ 12,00 com café hoje.” | A movimentação deve ser registrada e confirmada após a gravação. |
-| Consulta de saldo | “Qual é meu saldo atual?” | O sistema deve consultar os registros e calcular o saldo. |
-| Extrato mensal | “Mostre meu extrato de outubro de 2026.” | O sistema deve consultar as movimentações do período solicitado. |
-| Dados incompletos | “Registre uma despesa.” | O agente deve solicitar os dados obrigatórios que faltam. |
-| Falha de comunicação | Enviar uma mensagem com o webhook indisponível. | A aplicação deve informar que não conseguiu obter uma resposta. |
+Esses itens representam cenários de validação. Os resultados devem ser registrados após a execução efetiva de cada teste.
 
-Esses cenários são recomendações de validação. O resultado de cada teste deve ser confirmado na aplicação e no fluxo do n8n.
+## 11. Limitações e melhorias futuras
 
-## 🔐 Segurança e limitações
+O projeto pode ser ampliado com novas funcionalidades, incluindo:
 
-O Finan.IA é um protótipo acadêmico e não deve ser utilizado como sistema bancário ou contábil de produção.
+- Cadastro e autenticação de usuários.
+- Separação segura dos dados por usuário.
+- Registro e consulta de receitas e despesas.
+- Geração de relatórios financeiros.
+- Painel de indicadores com gráficos e estatísticas.
+- Filtros por período e categoria.
+- Exportação de relatórios.
+- Aprimoramento da validação dos dados.
+- Proteção de configurações e credenciais por meio de variáveis de ambiente.
 
-Alguns pontos importantes:
+As funcionalidades mencionadas nesta seção são propostas para futuras versões e não devem ser consideradas implementadas sem a respectiva validação.
 
-- A URL do webhook configurada no código pode ser acionada por terceiros se estiver pública.
-- Credenciais, senhas e chaves privadas não devem ser publicadas no GitHub.
-- A configuração atual utiliza um identificador de usuário fixo para a demonstração.
-- Consultas e gravações devem ser verificadas antes de apresentar resultados ao usuário.
-- Respostas geradas por IA podem conter interpretações incorretas; valores e movimentações devem ser validados com os dados armazenados.
-- A disponibilidade depende da aplicação, do webhook, do n8n e dos serviços externos utilizados.
+## 12. Considerações finais
 
-## 🚀 Melhorias futuras
+O Finan.IA demonstra a aplicação prática de conceitos de desenvolvimento de software, automação de processos e inteligência artificial. A integração entre Python, Streamlit e n8n permite construir uma interface conversacional conectada a um agente de IA, demonstrando como diferentes tecnologias podem trabalhar em conjunto para apoiar tarefas relacionadas à organização financeira.
 
-Entre as melhorias planejadas para versões futuras, destacam-se:
+O projeto também oferece uma base para estudos e melhorias futuras na área de sistemas inteligentes aplicados à gestão financeira.
 
-- Autenticação e identificação individual dos usuários;
-- Validação mais rigorosa de datas e valores;
-- Prevenção de lançamentos duplicados;
-- Edição e exclusão controlada de movimentações;
-- Padronização do formato das respostas do webhook;
-- Testes automatizados;
-- Melhorias no tratamento de erros e no registro de eventos;
-- Relatórios e gráficos financeiros;
-- Aprimoramento da segurança e da configuração de segredos.
+## 13. Informações acadêmicas
 
-## 👥 Integrantes
-
-- **Mickael de Sousa Miranda**
-- **Pedro Igor**
-
-**Instituição:** Centro Universitário de Balsas — UNIBALSAS  
+**Projeto:** Finan.IA — Assistente Financeiro Inteligente  
+**Instituição:** UNIBALSAS  
 **Curso:** Análise e Desenvolvimento de Sistemas  
-**Projeto:** Finan.IA — Assistente Financeiro Inteligente
+**Integrantes:** Mickael de Sousa Miranda e Pedro Igor
 
-## 📂 Repositório
+## 14. Repositório
 
-Código-fonte disponível em:
+Código-fonte disponível no GitHub:
 
-🔗 [https://github.com/mickaelsousamiranda-lgtm/Finan-IA](https://github.com/mickaelsousamiranda-lgtm/Finan-IA)
-
-## 📄 Considerações finais
-
-O Finan.IA demonstra a aplicação prática de Python, interfaces web, automação de processos e Inteligência Artificial na construção de um assistente financeiro conversacional.
-
-O desenvolvimento permitiu explorar a comunicação entre sistemas por meio de webhooks, a interpretação de mensagens em linguagem natural e o uso de dados estruturados para apoiar consultas financeiras.
-
-O projeto constitui uma base acadêmica para estudos e futuras melhorias relacionadas à usabilidade, confiabilidade, segurança e expansão de funcionalidades.
-
----
-
-*Projeto desenvolvido para fins acadêmicos e educacionais.*
+https://github.com/mickaelsousamiranda-lgtm/Finan-IA
